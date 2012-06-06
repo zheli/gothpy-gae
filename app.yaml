@@ -9,5 +9,8 @@ libraries:
   version: latest
 
 handlers:
+- url: /images
+  static_dir: static/images
+
 - url: /.*
   script: main.app

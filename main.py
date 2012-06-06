@@ -13,7 +13,9 @@ class IndexPage(webapp2.RequestHandler):
 
 class PostMsg(webapp2.RequestHandler):
     def post(self):
-        self.response.out.write(self.request.get('message'))
+        template_values = { 'message' : self.request.get('message')}
+        template = jinja_environment.get_template('showmessage.html')
+        self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication(
         [
