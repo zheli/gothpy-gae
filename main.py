@@ -11,6 +11,13 @@ class IndexPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render(template_values))
 
+class PostMsg(webapp2.RequestHandler):
+    def post(self):
+        self.response.out.write(self.request.get('message'))
+
 app = webapp2.WSGIApplication(
-        [('/', IndexPage)],
+        [
+            ('/', IndexPage),
+            ('/post', PostMsg)
+        ],
         debug = True)
