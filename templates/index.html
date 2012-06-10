@@ -3,10 +3,26 @@
     <head>
     </head>
     <body>
-        <h1>Hello, World!</h1>
-        <form action="/post" method="POST">
-            <div>Type in a message: <input type="text" name="message" /></div>
-            <div><input type="submit" value="Submit" /></div>
-        </form>
+        <div id="main">
+        </div>
+        <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var chat_token  = '{{chat_token}}';
+                var channel     = new goog.appengine.Channel(chat_token);
+                var socket      = channel.open();
+                socket.onopen   = function(){
+                };
+                socket.onmessage= function(m){
+                    var data = $.parseJSON(m.data);
+                    $('#main').append(data['html']);
+                };
+                socket.onerror  = function(err){
+                    alert("Error:" + err.description);
+                };
+                socket.onclose  = function(){};
+            });
+        </script>
     </body>
 </html>
